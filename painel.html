@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ellenco Construções - Equipe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans text-gray-900">
+
+<div class="flex min-h-screen">
+
+    <!-- MENU LATERAL -->
+    <aside class="hidden md:flex w-64 bg-blue-950 text-white p-6 flex-col">
+
+        <div class="mb-10">
+            <h1 class="text-2xl font-bold italic">Ellenco</h1>
+            <p class="text-red-400 text-xs font-bold">CONSTRUÇÕES</p>
+        </div>
+
+          <nav class="space-y-3">
+            <a href="painel.html" class="block p-3 rounded-lg bg-red-500 font-semibold"> Painel de Metas</a>
+            <a href="calendario.html" class="block p-3 rounded-lg hover:bg-blue-900"> Calendário</a>
+            <a href="equipe.html" class="block p-3 rounded-lg hover:bg-blue-900"> Equipe</a>
+        </nav>
+
+        <p class="mt-auto pt-10 text-sm">
+                                ©LogiCore
+        </p>
+    </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="flex-1 min-w-0">
+
+                <!-- CABEÇALHO -->
+        <header class="bg-white border-b p-5 flex justify-between items-center">
+            <div>
+                <h2 class="text-xl font-bold">Painel de Metas</h2>
+                <p class="text-sm text-gray-500">
+                    Gestão da equipe e acompanhamento das atividades.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-900 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold">
+                    U
+                </div>
+                <div class="hidden sm:block">
+                    <p class="font-semibold text-sm">Usuário 1</p>
+                    <p class="text-xs text-gray-500">Administradora</p>
+                </div>
+                <a href="backend/logout.php" class="rounded-lg border border-gray-200 px-3 py-2 text-sm font-semibold text-slate-600 transition hover:border-red-200 hover:text-red-600">Sair</a>
+            </div>
+        </header>
+
+            <section class="p-5 md:p-8">
+
+                <!-- TÍTULO -->
+                <div class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center mb-6">
+                    <div>
+                        <h1 class="text-2xl font-bold">
+                            Painel de Metas Semanais
+                        </h1>
+                        <p class="text-gray-500 text-sm mt-1">
+                            Acompanhe o progresso das metas das frentes de obra.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- RESUMO DAS METAS -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+
+                    <div class="bg-white border rounded-xl p-5">
+                        <p class="text-sm text-gray-500">Total de Metas</p>
+                        <h2 class="text-3xl font-bold">0</h2>
+                        <p class="text-xs text-gray-400">0% das frentes</p>
+                    </div>
+
+                    <div class="bg-white border rounded-xl p-5">
+                        <p class="text-sm text-gray-500">Em Andamento</p>
+                        <h2 class="text-3xl font-bold">0</h2>
+                        <p class="text-xs text-gray-400">0% do total</p>
+                    </div>
+
+                    <div class="bg-white border rounded-xl p-5">
+                        <p class="text-sm text-gray-500">Concluídas</p>
+                        <h2 class="text-3xl font-bold text-green-600">0</h2>
+                        <p class="text-xs text-gray-400">0% do total</p>
+                    </div>
+
+                    <div class="bg-white border rounded-xl p-5">
+                        <p class="text-sm text-gray-500">Atrasadas</p>
+                        <h2 class="text-3xl font-bold text-red-500">0</h2>
+                        <p class="text-xs text-gray-400">0% do total</p>
+                    </div>
+
+                </div>
+
+                <!-- QUADRO KANBAN -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+                    <!-- A FAZER -->
+                    <div class="bg-white border rounded-xl p-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-lg">A Fazer</h3>
+                            <span class="bg-gray-100 px-3 rounded-full text-sm">0</span>
+                        </div>
+
+                        <div class="space-y-3">
+
+                        </div>
+
+                     
+                    </div>
+
+                    <!-- EM ANDAMENTO -->
+                    <div class="bg-white border rounded-xl p-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-lg">Em Andamento</h3>
+                            <span class="bg-yellow-100 text-yellow-700 px-3 rounded-full text-sm">0</span>
+                        </div>
+
+                        <div class="space-y-3">
+
+                        </div>
+
+                        <a href="#" class="block text-center border border-dashed rounded-lg p-3 mt-4 text-sm text-gray-500">
+                            + Adicionar nova meta
+                        </a>
+                    </div>
+
+                    <!-- CONCLUÍDAS -->
+                    <div class="bg-white border rounded-xl p-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-lg">Concluídas</h3>
+                            <span class="bg-green-100 text-green-700 px-3 rounded-full text-sm">0</span>
+                        </div>
+
+
+                      
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>

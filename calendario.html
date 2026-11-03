@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ellenco Construções - Calendário</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans text-gray-900">
+
+<div class="flex min-h-screen">
+
+   <!-- MENU LATERAL -->
+    <aside class="hidden md:flex w-64 bg-blue-950 text-white p-6 flex-col">
+
+        <div class="mb-10">
+            <h1 class="text-2xl font-bold italic">Ellenco</h1>
+            <p class="text-red-400 text-xs font-bold">CONSTRUÇÕES</p>
+        </div>
+
+        <nav class="space-y-3">
+            <a href="painel.html" class="block p-3 rounded-lg hover:bg-blue-900"> Painel de Metas</a>
+            <a href="calendario.html" class="block p-3 rounded-lg bg-red-500 font-semibold"> Calendário</a>
+            <a href="equipe.html" class="block p-3 rounded-lg hover:bg-blue-900"> Equipe</a>
+        </nav>
+
+        <p class="mt-auto pt-10 text-sm">
+                                ©LogiCore
+        </p>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="flex-1 min-w-0">
+
+       <!-- CABEÇALHO -->
+        <header class="bg-white border-b p-5 flex justify-between items-center">
+            <div>
+                <h2 class="text-xl font-bold">Calendário</h2>
+                <p class="text-sm text-gray-500">
+                    Gestão da equipe e acompanhamento das atividades.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-900 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold">
+                    U
+                </div>
+                <div class="hidden sm:block">
+                    <p class="font-semibold text-sm">Usuário</p>
+                    <p class="text-xs text-gray-500">Administradora</p>
+                </div>
+                <a href="backend/logout.php" class="rounded-lg border border-gray-200 px-3 py-2 text-sm font-semibold text-slate-600 transition hover:border-red-200 hover:text-red-600">Sair</a>
+            </div>
+        </header>
+
+        <!-- CONTEÚDO -->
+        <div class="flex flex-col xl:flex-row">
+
+            <!-- CALENDÁRIO -->
+            <section class="flex-1 min-w-0 p-4 md:p-6">
+
+                <!-- NAVEGAÇÃO -->
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+
+                    <div class="flex flex-wrap items-center gap-2">
+
+                        <button id="calendar-today" type="button" class="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm">
+                            Hoje
+                        </button>
+
+                        <button id="calendar-prev" type="button" aria-label="Mês anterior" class="bg-white border border-gray-200 rounded-lg px-3 py-2 font-bold">
+                            &larr;
+                        </button>
+
+                        <button id="calendar-next" type="button" aria-label="Próximo mês" class="bg-white border border-gray-200 rounded-lg px-3 py-2 font-bold">
+                            &rarr;
+                        </button>
+
+                        <div class="relative ml-1">
+                            <button id="calendar-title" type="button" class="text-lg font-bold rounded px-1 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-haspopup="dialog" aria-expanded="false">
+                                <span id="calendar-title-text">Outubro 2026</span>
+                                <span aria-hidden="true" class="text-sm text-gray-500">▾</span>
+                            </button>
+                            <div id="month-picker" role="dialog" aria-label="Escolher mês e ano" class="hidden absolute left-0 top-full z-20 mt-2 w-64 rounded-xl border border-gray-200 bg-white p-4 shadow-xl">
+                                <form id="month-picker-form" class="space-y-3">
+                                    <label class="block text-sm font-medium text-gray-700">Mês
+                                        <select id="month-picker-month" class="mt-1 w-full rounded-lg border border-gray-300 p-2"></select>
+                                    </label>
+                                    <label class="block text-sm font-medium text-gray-700">Ano
+                                        <input id="month-picker-year" type="number" min="1" max="9999" required class="mt-1 w-full rounded-lg border border-gray-300 p-2">
+                                    </label>
+                                    <button type="submit" class="w-full rounded-lg bg-blue-950 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-900">Ir para mês</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="flex items-center gap-2">
+
+                        <button class="bg-blue-950 hover:bg-blue-900 text-white rounded-lg px-4 py-2 text-sm font-semibold whitespace-nowrap">
+                            + Novo evento
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- GRADE DO CALENDÁRIO -->
+                <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+
+                    <!-- DIAS DA SEMANA -->
+                    <div class="grid grid-cols-7 bg-gray-50 border-b border-gray-200">
+
+                        <div class="text-center text-[11px] font-bold text-gray-500 p-3">DOM</div>
+                        <div class="text-center text-[11px] font-bold text-gray-500 p-3">SEG</div>
+                        <div class="text-center text-[11px] font-bold text-gray-500 p-3">TER</div>
+                        <div class="text-center text-[11px] font-bold text-gray-500 p-3">QUA</div>
+                        <div class="text-center text-[11px] font-bold text-gray-500 p-3">QUI</div>
+                        <div class="text-center text-[11px] font-bold text-gray-500 p-3">SEX</div>
+                        <div class="text-center text-[11px] font-bold text-gray-500 p-3">SÁB</div>
+
+                    </div>
+
+                    <div id="calendar-grid" class="grid grid-cols-7" role="grid" aria-label="Dias do mês"></div>
+
+                </div>
+
+                <!-- LEGENDA -->
+                <div class="flex flex-wrap justify-center gap-x-5 gap-y-3 mt-5 text-[11px] text-gray-500">
+
+                    <span class="flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-green-400"></span>
+                        Meta / Produção
+                    </span>
+
+                    <span class="flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                        Eventos
+                    </span>
+
+                    <span class="flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+                        Reuniões / Treinamentos
+                    </span>
+
+
+                    <span class="flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-red-400"></span>
+                        Manutenção
+                    </span>
+
+                    <span class="flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-gray-400"></span>
+                        Outros
+                    </span>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+<div id="calendar-item-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/70 p-4" role="dialog" aria-modal="true" aria-labelledby="calendar-modal-title">
+    <div class="absolute inset-0" data-calendar-modal-backdrop></div>
+    <section class="relative z-10 w-full max-w-lg rounded-2xl border border-gray-200 bg-white p-6 shadow-2xl sm:p-8">
+        <button id="calendar-modal-close" type="button" aria-label="Fechar detalhes" class="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 text-xl text-slate-600 hover:bg-gray-200">&times;</button>
+        <p id="calendar-modal-type" class="mb-2 text-xs font-bold uppercase tracking-wider text-blue-700"></p>
+        <h2 id="calendar-modal-title" class="pr-10 text-xl font-bold text-slate-900"></h2>
+        <p id="calendar-modal-date" class="mt-2 text-sm text-slate-500"></p>
+        <p id="calendar-modal-description" class="mt-5 whitespace-pre-wrap text-sm leading-relaxed text-slate-700"></p>
+        <div id="calendar-modal-progress" class="mt-5 hidden">
+            <div class="mb-2 flex justify-between text-sm font-medium text-slate-600"><span id="calendar-modal-status"></span><span id="calendar-modal-progress-label"></span></div>
+            <div class="h-2.5 overflow-hidden rounded-full bg-slate-200"><div id="calendar-modal-progress-bar" class="h-full rounded-full bg-blue-700 transition-all"></div></div>
+        </div>
+    </section>
+</div>
+<script id="calendar-meta-data" type="application/json">[]</script>
+<script>
+    (() => {
+        const title = document.getElementById('calendar-title-text');
+        const grid = document.getElementById('calendar-grid');
+        const titleButton = document.getElementById('calendar-title');
+        const monthPicker = document.getElementById('month-picker');
+        const monthSelect = document.getElementById('month-picker-month');
+        const yearInput = document.getElementById('month-picker-year');
+        const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+        const today = new Date();
+        let visibleMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+        const calendarItems = JSON.parse(document.getElementById('calendar-meta-data')?.textContent || '[]');
+        const itemsByDate = calendarItems.reduce((result, item) => {
+            const itemDate = item.type === 'meta' ? item.end_date : item.date;
+            (result[itemDate] ||= []).push(item);
+            return result;
+        }, {});
+        const modal = document.getElementById('calendar-item-modal');
+        const modalTitle = document.getElementById('calendar-modal-title');
+        const modalDate = document.getElementById('calendar-modal-date');
+        const modalDescription = document.getElementById('calendar-modal-description');
+        const modalProgress = document.getElementById('calendar-modal-progress');
+
+        function formatDate(dateValue) {
+            const [year, month, day] = dateValue.split('-');
+            return `${day}/${month}/${year}`;
+        }
+
+        function openItem(item) {
+            const isMeta = item.type === 'meta';
+            document.getElementById('calendar-modal-type').textContent = isMeta ? 'Meta' : 'Evento';
+            modalTitle.textContent = item.title;
+            modalDate.textContent = isMeta
+                ? `${item.sector} · ${formatDate(item.start_date)}–${formatDate(item.end_date)}`
+                : `${item.sector} · ${formatDate(item.date)}${item.time ? ` às ${item.time}` : ''}`;
+            modalDescription.textContent = item.description || 'Sem descrição.';
+            modalDescription.classList.toggle('hidden', !item.description);
+            modalProgress.classList.toggle('hidden', !isMeta);
+
+            if (isMeta) {
+                const statusNames = { a_fazer: 'A fazer', em_andamento: 'Em andamento', concluida: 'Concluída' };
+                const progress = Math.max(0, Math.min(100, Number(item.progress) || 0));
+                document.getElementById('calendar-modal-status').textContent = statusNames[item.status] || item.status;
+                document.getElementById('calendar-modal-progress-label').textContent = `${progress}% concluído`;
+                document.getElementById('calendar-modal-progress-bar').style.width = `${progress}%`;
+            } else {
+                const categoryNames = { reuniao: 'Reunião', fiscalizacao: 'Fiscalização', manutencao: 'Manutenção', outros: 'Outros', eventos: 'Eventos' };
+                document.getElementById('calendar-modal-type').textContent = `Evento · ${categoryNames[item.category] || item.category}`;
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.classList.add('overflow-hidden');
+            document.getElementById('calendar-modal-close').focus();
+        }
+
+        function closeItem() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        document.getElementById('calendar-modal-close').addEventListener('click', closeItem);
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal || event.target.hasAttribute('data-calendar-modal-backdrop')) closeItem();
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !modal.classList.contains('hidden')) closeItem();
+        });
+
+        function makeDate(year, month, day = 1) {
+            const date = new Date(0);
+            date.setFullYear(year, month, day);
+            date.setHours(0, 0, 0, 0);
+            return date;
+        }
+
+        monthNames.forEach((monthName, index) => {
+            const option = document.createElement('option');
+            option.value = String(index);
+            option.textContent = monthName;
+            monthSelect.appendChild(option);
+        });
+
+        function setPickerVisibility(isVisible) {
+            monthPicker.classList.toggle('hidden', !isVisible);
+            titleButton.setAttribute('aria-expanded', String(isVisible));
+            if (isVisible) {
+                monthSelect.value = String(visibleMonth.getMonth());
+                yearInput.value = String(visibleMonth.getFullYear());
+                monthSelect.focus();
+            }
+        }
+
+        function renderCalendar() {
+            const year = visibleMonth.getFullYear();
+            const month = visibleMonth.getMonth();
+            const firstWeekday = makeDate(year, month, 1).getDay();
+            const daysInMonth = makeDate(year, month + 1, 0).getDate();
+            const daysInPreviousMonth = makeDate(year, month, 0).getDate();
+            const cellCount = Math.ceil((firstWeekday + daysInMonth) / 7) * 7;
+
+            title.textContent = `${monthNames[month]} ${year}`;
+            monthSelect.value = String(month);
+            yearInput.value = String(year);
+            grid.replaceChildren();
+
+            for (let index = 0; index < cellCount; index += 1) {
+                const dayOffset = index - firstWeekday + 1;
+                const date = makeDate(year, month, dayOffset);
+                const isCurrentMonth = dayOffset > 0 && dayOffset <= daysInMonth;
+                const isToday = date.getFullYear() === today.getFullYear()
+                    && date.getMonth() === today.getMonth()
+                    && date.getDate() === today.getDate();
+                const cell = document.createElement('div');
+                const isLastRow = index >= cellCount - 7;
+                const isLastColumn = index % 7 === 6;
+
+                cell.className = `min-h-28 md:min-h-[120px] p-1.5 text-xs ${isLastRow ? '' : 'border-b'} ${isLastColumn ? '' : 'border-r'} border-gray-200 ${isCurrentMonth ? '' : 'text-gray-400 bg-gray-50'}`;
+                if (isToday && isCurrentMonth) cell.classList.add('font-bold', 'text-blue-700', 'bg-blue-50');
+                cell.setAttribute('role', 'gridcell');
+                cell.textContent = String(isCurrentMonth ? dayOffset : (dayOffset <= 0 ? daysInPreviousMonth + dayOffset : dayOffset - daysInMonth));
+                const dateKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+                (itemsByDate[dateKey] || []).forEach((item) => {
+                    const badge = document.createElement('button');
+                    const eventColors = {
+                        reuniao: 'border-yellow-300 bg-yellow-50 text-yellow-900',
+                        fiscalizacao: 'border-sky-300 bg-sky-50 text-sky-800',
+                        manutencao: 'border-red-300 bg-red-50 text-red-800',
+                        eventos: 'border-purple-300 bg-purple-50 text-purple-800', outros: 'border-gray-300 bg-gray-50 text-gray-700'
+                    };
+                    badge.type = 'button';
+                    badge.className = `mt-1 block w-full truncate rounded-md border px-1 py-0.5 text-left text-[10px] font-semibold ${item.type === 'meta' ? 'border-green-300 bg-green-50 text-green-800' : (eventColors[item.category] || eventColors.outros)}`;
+                    badge.title = item.title;
+                    badge.textContent = item.title;
+                    badge.addEventListener('click', () => openItem(item));
+                    cell.appendChild(badge);
+                });
+                grid.appendChild(cell);
+            }
+        }
+
+        document.getElementById('calendar-prev').addEventListener('click', () => {
+            visibleMonth = makeDate(visibleMonth.getFullYear(), visibleMonth.getMonth() - 1, 1);
+            renderCalendar();
+        });
+
+        document.getElementById('calendar-next').addEventListener('click', () => {
+            visibleMonth = makeDate(visibleMonth.getFullYear(), visibleMonth.getMonth() + 1, 1);
+            renderCalendar();
+        });
+
+        document.getElementById('calendar-today').addEventListener('click', () => {
+            visibleMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+            renderCalendar();
+        });
+
+        titleButton.addEventListener('click', () => {
+            setPickerVisibility(monthPicker.classList.contains('hidden'));
+        });
+
+        document.getElementById('month-picker-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const selectedYear = Number(yearInput.value);
+            const selectedMonth = Number(monthSelect.value);
+            if (!Number.isInteger(selectedYear) || selectedYear < 1 || selectedYear > 9999) return;
+
+            visibleMonth = makeDate(selectedYear, selectedMonth, 1);
+            renderCalendar();
+            setPickerVisibility(false);
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!monthPicker.contains(event.target) && !titleButton.contains(event.target)) {
+                setPickerVisibility(false);
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') setPickerVisibility(false);
+        });
+
+        renderCalendar();
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ellenco Construções - Login</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="font-['Inter'] h-screen w-screen overflow-hidden">
+
+    <div class="flex h-full w-full flex-col lg:flex-row">
+
+        <!--menu-->
+        <aside
+            class="w-full lg:w-2/5 bg-slate-900 text-white p-10 lg:p-[60px] flex flex-col justify-between min-h-[300px]">
+
+            <!-- Logo -->
+            <div>
+                <h1 class="text-3xl font-bold leading-none">
+                    Ellenco
+                </h1>
+
+                <span class="text-xs font-bold tracking-[2px] uppercase text-red-500">
+                    CONSTRUÇÕES
+                </span>
+            </div>
+
+            
+            <div class="max-w-[450px] mt-10 lg:mt-[100px] mb-10 lg:mb-auto">
+
+                <h2 class="text-3xl lg:text-[2.2rem] font-bold leading-tight mb-5">
+                    Acompanhe as metas e o progresso da sua obra em tempo real.
+                </h2>
+
+                <p class="text-base text-slate-400 leading-relaxed">
+                    Painel centralizado de controle, relatórios de frentes de trabalho,
+                    canteiros integrados e gestão de equipes de engenharia.
+                </p>
+
+            </div>
+
+            <!--rodape-->
+            <div>
+                <p class="text-xs text-slate-500">
+                    ©LogiCore
+                </p>
+            </div>
+
+        </aside>
+
+
+        <!-- login -->
+        <main
+            class="w-full lg:w-3/5 bg-slate-100 flex flex-col items-center justify-center p-5">
+
+            
+            <div
+                class="bg-white w-full max-w-[480px] p-6 lg:p-10 rounded-2xl shadow-lg">
+
+                <!--cabecalho -->
+                <div class="text-center mb-8">
+
+                    <div
+                        class="w-[50px] h-[50px] bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
+
+                      
+                        <svg width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="#3b82f6" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+
+                        </svg>
+
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-slate-800 mb-1">
+                        Faça seu login
+                    </h3>
+
+                    <p class="text-sm text-slate-500 max-w-[300px] mx-auto leading-relaxed">
+                        Preencha os dados abaixo para criar seu acesso ao sistema.
+                    </p>
+
+                </div>
+
+
+                <!--formulario -->
+                <form action="login.html" method="POST">
+
+                    
+                    <div class="mb-5">
+
+                        <label
+                            for="email"
+                            class="block text-xs font-semibold text-slate-800 mb-2">
+                            E-mail
+                        </label>
+
+                        <div class="relative flex items-center">
+
+                            <span class="absolute left-3 flex items-center">
+
+                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="#94a3b8" stroke-width="2">
+
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+
+                                </svg>
+
+                            </span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                required
+                                autocomplete="username"
+                                placeholder="Digite seu e-mail"
+                                class="w-full py-3 pl-10 pr-3 border border-slate-200 rounded-lg text-sm text-slate-800 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 placeholder:text-slate-300">
+
+                        </div>
+
+                    </div>
+
+
+                    <!--senha -->
+                    <div class="mb-5">
+
+                        <label
+                            for="password"
+                            class="block text-xs font-semibold text-slate-800 mb-2">
+                            Senha
+                        </label>
+
+                        <div class="relative flex items-center">
+
+                         
+                            <span class="absolute left-3">
+
+                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="#94a3b8" stroke-width="2">
+
+                                    <rect x="3" y="11" width="18" height="11"
+                                        rx="2" ry="2"></rect>
+
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+
+                                </svg>
+
+                            </span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                required
+                                autocomplete="current-password"
+                                placeholder="Digite sua senha"
+                                class="w-full py-3 pl-10 pr-10 border border-slate-200 rounded-lg text-sm text-slate-800 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 placeholder:text-slate-300">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- acessos -->
+                    <div class="mb-5">
+
+    
+
+                        <div class="flex gap-4">
+
+                           
+
+                        </div>
+
+                    </div>
+
+
+                    <!--botao -->
+                    <div class="mb-5">
+                        <div class="relative">
+
+    
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="w-full py-3 mt-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-base font-semibold transition">
+
+                        Entrar
+
+                    </button>
+
+
+                    <!--esqueceu senha-->
+                    <div class="text-center mt-5">
+
+                        <p class="text-xs text-slate-800">
+
+                            Não tem login?
+
+                            <a
+                                href="cadastro.html"
+                                class="text-blue-600 font-bold hover:underline">
+
+                                Faça seu cadastro.
+
+                            </a>
+
+                        </p>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

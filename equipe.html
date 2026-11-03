@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ellenco Construções - Equipe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans text-gray-900">
+
+<div class="flex min-h-screen">
+
+    <!-- MENU LATERAL -->
+    <aside class="hidden md:flex w-64 bg-blue-950 text-white p-6 flex-col">
+
+        <div class="mb-10">
+            <h1 class="text-2xl font-bold italic">Ellenco</h1>
+            <p class="text-red-400 text-xs font-bold">CONSTRUÇÕES</p>
+        </div>
+
+      <nav class="space-y-3">
+            <a href="painel.html" class="block p-3 rounded-lg hover:bg-blue-900">Painel de Metas</a>
+            <a href="calendario.html" class="block p-3 rounded-lg hover:bg-blue-900">Calendário</a>
+            <a href="equipe.html" class="block p-3 rounded-lg bg-red-500 font-semibold">Equipe</a>
+        </nav>
+
+        <p class="mt-auto pt-10 text-sm">
+                                ©LogiCore
+        </p>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="flex-1 min-w-0">
+
+        <!-- CABEÇALHO -->
+        <header class="bg-white border-b p-5 flex justify-between items-center">
+            <div>
+                <h2 class="text-xl font-bold">Equipe</h2>
+                <p class="text-sm text-gray-500">
+                    Gestão da equipe e acompanhamento das atividades.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-900 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold">
+                    U
+                </div>
+                <div class="hidden sm:block">
+                    <p class="font-semibold text-sm">Usuário</p>
+                    <p class="text-xs text-gray-500">Administradora</p>
+                </div>
+                <a href="backend/logout.php" class="rounded-lg border border-gray-200 px-3 py-2 text-sm font-semibold text-slate-600 transition hover:border-red-200 hover:text-red-600">Sair</a>
+            </div>
+        </header>
+
+        <section class="p-5 md:p-8">
+
+            <!-- TÍTULO -->
+            <div class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center mb-6">
+                <div>
+                    <h1 class="text-2xl font-bold">Minha Equipe</h1>
+                    <p class="text-gray-500 text-sm mt-1">
+                        Acompanhe o desempenho, as atividades e o engajamento de sua equipe.
+                    </p>
+                </div>
+
+                <a href="#" class="bg-blue-800 text-white text-center px-5 py-3 rounded-lg font-semibold hover:bg-blue-900">
+                    + Adicionar membro
+                </a>
+            </div>
+
+            
+
+<!-- INDICADORES E PRÓXIMAS ATIVIDADES -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6">
+
+    <!-- INDICADORES -->
+    <div class="bg-white border rounded-xl p-5 h-full">
+
+        <h3 class="font-bold text-lg mb-5">Membros da Equipe</h3>
+
+        <div class="grid grid-cols-2 gap-4">
+
+            <div class="bg-gray-50 border rounded-lg p-5">
+                <h2 class="text-3xl font-bold mt-2">4</h2>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <!-- PRÓXIMAS ATIVIDADES -->
+    <div class="bg-white border rounded-xl p-5 h-full">
+
+        <div class="flex justify-between items-center mb-5">
+            <h3 class="font-bold text-lg">Próximaos Eventos</h3>
+            <a href="#" class="text-blue-800 text-xs font-semibold">
+                Ver calendário
+            </a>
+        </div>
+
+        <div class="space-y-5">
+
+      
+
+        </div>
+
+    </div>
+
+</div>
+
+            
+               
+            <!-- CONTEÚDO -->
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+
+                <!-- MEMBROS DA EQUIPE -->
+                <div class="xl:col-span-2 bg-white border rounded-xl p-5">
+
+                    <h3 class="font-bold text-lg mb-4">Membros da Equipe (4)</h3>
+
+                    <div class="grid grid-cols-3 gap-3 text-xs font-bold text-gray-500 border-b pb-3">
+                        <span>Nome</span>
+                        <span>Função</span>
+                        <span>Progresso</span>
+                    </div>
+
+                    <!-- MEMBRO 1 -->
+                    <div class="grid grid-cols-3 gap-3 items-center py-4 border-b">
+                        <div class="flex items-center gap-3">
+                            <div class="hidden sm:flex bg-blue-50 text-blue-900 rounded-full w-9 h-9 items-center justify-center font-bold text-xs">O1</div>
+                            <div>
+                                <p class="font-semibold text-sm">Operador 1</p>
+                                <p class="text-xs text-gray-500">Encarregado</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">Encarregado</p>
+                        <div>
+                            <p class="text-xs font-bold mb-2">76%</p>
+                            <div class="bg-gray-200 h-1.5 rounded-full">
+                                <div class="bg-blue-800 h-1.5 rounded-full w-3/4"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MEMBRO 2 -->
+                    <div class="grid grid-cols-3 gap-3 items-center py-4 border-b">
+                        <div class="flex items-center gap-3">
+                            <div class="hidden sm:flex bg-blue-50 text-blue-900 rounded-full w-9 h-9 items-center justify-center font-bold text-xs">O2</div>
+                            <div>
+                                <p class="font-semibold text-sm">Operador 2</p>
+                                <p class="text-xs text-gray-500">Auxiliar</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">Operacional</p>
+                        <div>
+                            <p class="text-xs font-bold mb-2">92%</p>
+                            <div class="bg-gray-200 h-1.5 rounded-full">
+                                <div class="bg-blue-800 h-1.5 rounded-full w-11/12"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MEMBRO 3 -->
+                    <div class="grid grid-cols-3 gap-3 items-center py-4 border-b">
+                        <div class="flex items-center gap-3">
+                            <div class="hidden sm:flex bg-blue-50 text-blue-900 rounded-full w-9 h-9 items-center justify-center font-bold text-xs">O3</div>
+                            <div>
+                                <p class="font-semibold text-sm">Operador 3</p>
+                                <p class="text-xs text-gray-500">Técnico</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">Técnico</p>
+                        <div>
+                            <p class="text-xs font-bold mb-2">68%</p>
+                            <div class="bg-gray-200 h-1.5 rounded-full">
+                                <div class="bg-blue-800 h-1.5 rounded-full w-2/3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MEMBRO 4 -->
+                    <div class="grid grid-cols-3 gap-3 items-center py-4">
+                        <div class="flex items-center gap-3">
+                            <div class="hidden sm:flex bg-blue-50 text-blue-900 rounded-full w-9 h-9 items-center justify-center font-bold text-xs">O4</div>
+                            <div>
+                                <p class="font-semibold text-sm">Operador 4</p>
+                                <p class="text-xs text-gray-500">Operacional</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">Operacional</p>
+                        <div>
+                            <p class="text-xs font-bold mb-2">100%</p>
+                            <div class="bg-gray-200 h-1.5 rounded-full">
+                                <div class="bg-blue-800 h-1.5 rounded-full w-full"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+</div>
+
+</body>
+</html>

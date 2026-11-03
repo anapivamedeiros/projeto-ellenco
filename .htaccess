@@ -1,0 +1,7 @@
+DirectoryIndex login.html
+RewriteEngine On
+RewriteRule ^login\.html$ backend/login.php [L]
+RewriteRule ^cadastro\.html$ backend/register.php [L]
+RewriteRule ^painel\.html$ backend/painel.php [L]
+RewriteRule ^calendario\.html$ backend/calendario.php [L]
+RewriteRule ^equipe\.html$ backend/equipe.php [L]
