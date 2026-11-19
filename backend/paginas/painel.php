@@ -698,6 +698,7 @@ if (!$renderizarPagina) {
   . '<div class="modal-foot"><button class="btn" type="button" data-modal-close>Cancelar</button>'
   . '<button class="btn btn-primary" type="submit">Salvar progresso</button></div>'
   . '</form></dialog>';
+}
 
 /* --------- modal de criar meta --------- */
 $modalCriar = '';
