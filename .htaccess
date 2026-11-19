@@ -23,7 +23,9 @@ Options -Indexes
   RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
 
   # --- páginas amigáveis: /painel.html -> backend/painel.php ----------------
-  RewriteRule ^login\.html$       backend/login.php       [L]
+  # O guarda de sessão redireciona para /login.html?sessao=expirada; com o
+  # [QSD] esta regra não joga a query fora, então a marca chega no PHP.
+  RewriteRule ^login\.html$       backend/login.php       [L,QSD]
   RewriteRule ^cadastro\.html$    backend/register.php    [L]
   RewriteRule ^painel\.html$      backend/painel.php      [L]
   RewriteRule ^equipe\.html$      backend/equipe.php      [L]
