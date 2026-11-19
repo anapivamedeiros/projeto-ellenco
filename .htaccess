@@ -1,25 +1,44 @@
+# =============================================================================
+# Ellenco — configuração do Apache.
+#
+# Produção: https://<app>.onrender.com/  (Render termina o TLS e entrega tudo
+# por HTTP na porta interna).
+#
+# NÃO existe aqui nenhuma regra de "forçar HTTPS". Um redirect para https://
+# que dependa de X-Forwarded-Proto mal configurado vira loop infinito e o
+# navegador mostra ERR_TOO_MANY_REDIRECTS, que é exatamente o erro que estava
+# aparecendo no deploy.
+# =============================================================================
+
 DirectoryIndex login.html
-
-RewriteEngine On
-
-# --- páginas amigáveis: /painel.html -> backend/painel.php ------------------
-RewriteRule ^login\.html$       backend/login.php       [L]
-RewriteRule ^cadastro\.html$    backend/register.php    [L]
-RewriteRule ^painel\.html$      backend/painel.php      [L]
-RewriteRule ^equipe\.html$      backend/equipe.php      [L]
-RewriteRule ^calendario\.html$  backend/calendario.php  [L]
-RewriteRule ^config\.html$      backend/config.php      [L]
-RewriteRule ^alertas\.html$     backend/alertas.php     [L]
-RewriteRule ^relatorio\.html$   backend/relatorio.php   [L]
-
-# --- migração do banco (protegida por ?chave= no próprio PHP) --------------
-RewriteRule ^migrar\.html$     backend/migrar.php      [L]
-
-# --- raiz: entra no painel (o PHP manda para o login se não houver sessão) --
-RewriteRule ^$ backend/painel.php [L]
-
-# --- nada de listar diretórios ---------------------------------------------
 Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Se o navegador chegou pelo host interno do container, manda para o host
+  # público. Só dispara quando o Host é um IP — nunca para o domínio normal.
+  RewriteCond %{HTTP_HOST} ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+(:[0-9]+)?$ [NC]
+  RewriteCond %{HTTP_X_FORWARDED_HOST} ^(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+  # --- páginas amigáveis: /painel.html -> backend/painel.php ----------------
+  RewriteRule ^login\.html$       backend/login.php       [L]
+  RewriteRule ^cadastro\.html$    backend/register.php    [L]
+  RewriteRule ^painel\.html$      backend/painel.php      [L]
+  RewriteRule ^equipe\.html$      backend/equipe.php      [L]
+  RewriteRule ^calendario\.html$  backend/calendario.php  [L]
+  RewriteRule ^config\.html$      backend/config.php      [L]
+  RewriteRule ^alertas\.html$     backend/alertas.php     [L]
+  RewriteRule ^relatorio\.html$   backend/relatorio.php   [L]
+
+  # --- migração do banco (protegida por ?chave= no próprio PHP) ------------
+  RewriteRule ^migrar\.html$      backend/migrar.php      [L]
+
+  # ATENÇÃO: a raiz NÃO é redirecionada aqui.
+  # O DirectoryIndex já resolve "/" -> login.html. Uma regra "^$ -> painel.php"
+  # somava um salto extra e, combinada com o redirect do PHP, fechava o ciclo.
+</IfModule>
 
 # --- cabeçalhos de segurança ------------------------------------------------
 <IfModule mod_headers.c>

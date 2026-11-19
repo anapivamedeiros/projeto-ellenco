@@ -29,28 +29,23 @@ if (!TOKEN) {
   process.exit(1);
 }
 
-const MENSAGEM = `Mobile: corrigir estouro horizontal dos filtros e o toque
+const MENSAGEM = `Corrigir ERR_TOO_MANY_REDIRECTS no Render
 
-Auditoria de responsividade de 320px a 4K, medida em navegador de verdade
-em viewport de 375x812.
+O deploy em projeto-ellenco.onrender.com estava em loop de redirecionamento.
 
-- barra de filtros (busca + chips): empilha em ate 760px, com min-width:0 e
-  max-width:100% em todo filho; a faixa de chips rola dentro do proprio
-  container em vez de empurrar a pagina (era 464px de largura em tela de 375)
-- protecao geral contra rolagem horizontal (html, body: overflow-x hidden)
-- 100dvh no lugar de 100vh onde importa (sidebar, dialog) para nao estourar
-  com a barra do navegador no celular
-- campos de texto com 16px em (pointer: coarse): sem o zoom automatico que
-  o iOS aplica e nao desfaz
-- faixa de 430px e menos: metricas 2 por linha, topbar compacta, modal
-  bottom sheet colado nas bordas, anexos em uma coluna, acoes de tabela
-  com 36px de altura, calendario legivel
-- alvos de toque >= 40px em (pointer: coarse)
-- safe-area-inset do iPhone no rodape do modal e na sidebar
+- .htaccess: removida a regra "^$ -> backend/painel.php". O DirectoryIndex ja
+  resolve "/" para login.html, e a regra somava um segundo salto na mesma URL
+- .htaccess: nenhuma regra de "forcar HTTPS". O Render termina o TLS e entrega
+  por HTTP; condicao de X-Forwarded-Proto mal configurada e a causa classica
+  de loop
+- .htaccess: redirect so quando o Host e um IP (host interno do container),
+  usando X-Forwarded-Host — nunca no dominio normal
+- backend/.htaccess: db.php e layout.php bloqueados para acesso direto
+- preview/diagnostico-deploy.cjs: simula a cadeia de redirect em cada URL e
+  aponta onde o ciclo fecha (roda em node, sem servidor)
 
-Verificado: nenhum elemento passa da viewport, chips rolaveis no proprio
-container, dialog sem overflow interno.
-- README-DEPLOY.md reescrito com a ordem dos SQL e as variaveis`;
+Verificado com o simulador: "/" -> login.html e /painel.html sem sessao
+resolvem em um unico salto cada, sem loop.`;
 
 /* ------------------------------------------------ o que sobe ---------------- */
 const INCLUIR = [
@@ -58,6 +53,7 @@ const INCLUIR = [
   'login.html', 'cadastro.html',
   'database.sql', 'database-V1.sql', 'database-V2.sql',
   'assets/app.css', 'assets/app.js', 'assets/auth.css',
+  'backend/.htaccess',
   'backend/config.php', 'backend/db.php', 'backend/layout.php',
   'backend/health.php', 'backend/migrar.php',
   'backend/login.php', 'backend/logout.php', 'backend/register.php',
@@ -69,6 +65,7 @@ const INCLUIR = [
   'backend/paginas/config.php',
   'preview/build.mjs',
   'preview/auditar-mobile.cjs',
+  'preview/diagnostico-deploy.cjs',
   'tools/publicar.mjs',
   'tools/reverter.mjs',
 ];

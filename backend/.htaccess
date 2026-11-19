@@ -1,3 +1,5 @@
-<FilesMatch "^(config|db)\.php$">
+# Arquivos de infraestrutura: só podem ser incluídos por outros PHP,
+# nunca abertos direto pelo navegador.
+<FilesMatch "^(db|layout)\.php$">
   Require all denied
 </FilesMatch>
