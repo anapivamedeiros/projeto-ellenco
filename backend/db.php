@@ -36,10 +36,16 @@ function valid_csrf(?string $token): bool {
 }
 function require_login(): array {
     start_session();
-    // Destino diferente da própria página pedida: com /login.html servido como PHP,
-    // redirecionar para 'login.html' apontava para a mesma URL — o navegador
-    // abortava com ERR_TOO_MANY_REDIRECTS.
-    if (empty($_SESSION['user'])) { header('Location: ' . app_path('backend/login.php')); exit; }
+    // O destino tem de ser uma URL que NÃO passe por este guarda. /login.html é
+    // servido pelo PHP (precisa do CSRF), e esse PHP inclui este arquivo — então
+    // redirecionar para login.html dava loop. Aqui usamos um marcador de query:
+    // /login.html?sessao=expirada é servido pelo mesmo login.php, mas o guarda
+    // reconhece a marca e libera a página.
+    if (empty($_SESSION['user'])) {
+        if (($_GET['sessao'] ?? '') === 'expirada') { return []; }
+        header('Location: ' . app_path('login.html?sessao=expirada'), true, 303);
+        exit;
+    }
     return $_SESSION['user'];
 }function is_admin(array $user): bool {
     return ($user['tipo_acesso'] ?? '') === 'admin';
