@@ -262,7 +262,32 @@
       }, 12000);
     });
   }
+  /* ------------------------------------ atualizar progresso (modal) -- */
+  // O botão "Progresso" de cada meta traz o id da atribuição, o título e o
+  // valor atual. Aqui eles são copiados para o modal antes de abrir.
+  document.addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-abrir-progresso]');
+    if (!b) return;
+    ev.preventDefault();
 
+    var dlg = document.getElementById('modal-progresso');
+    if (!dlg) return;
+
+    var campoId = document.getElementById('progresso-atribuicao');
+    var campoValor = document.getElementById('progresso-valor');
+    var campoComentario = document.getElementById('progresso-comentario');
+    var titulo = dlg.querySelector('[data-progresso-titulo]');
+
+    if (campoId) campoId.value = b.getAttribute('data-abrir-progresso') || '';
+    if (campoValor) {
+      var v = parseFloat(b.getAttribute('data-progresso'));
+      campoValor.value = isNaN(v) ? 0 : Math.round(v);
+    }
+    if (campoComentario) campoComentario.value = '';
+    if (titulo) titulo.textContent = b.getAttribute('data-titulo') || '—';
+
+    abrirModal('modal-progresso', b);
+  });
   /* -------------------------------------------------------------- expor -- */
   window.Ellenco = {
     toast: toast,
