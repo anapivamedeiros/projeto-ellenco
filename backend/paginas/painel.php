@@ -677,6 +677,7 @@ foreach ($atribuicoes as $a) {
 }
 
 /* --------- modal de progresso --------- */
+$modalProgresso = '';
 if (!$renderizarPagina) {
     $modalProgresso = '<dialog class="modal" id="modal-progresso" aria-labelledby="titulo-progresso">'
   . '<form method="post" class="modal-inner">'
