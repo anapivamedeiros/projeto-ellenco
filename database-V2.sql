@@ -10,6 +10,13 @@
 --   5. views de apoio para os modais de detalhe.
 --
 -- Idempotente: pode rodar quantas vezes quiser.
+--
+-- CORRIGIDO (19/11): a view vw_evento_detalhe selecionava e.equipe_id e
+-- e.usuario_id, colunas que NÃO existem em eventos — equipe vem pela tabela
+-- evento_equipes e o responsável pela pessoa vinculada à equipe. A versão
+-- anterior falhava com 42703 (column e.equipe_id does not exist) e, como o
+-- Supabase roda o arquivo numa transação só, derrubava TODA a V2. As colunas
+-- agora vêm por subconsulta.
 -- Aplicar em: Supabase → SQL Editor.
 -- ============================================================================
 
@@ -173,16 +180,21 @@ SELECT e.id,
        e.criado_por,
        uc.nome AS criado_por_nome,
        e.criado_em,
-       e.equipe_id,
-       eq.nome AS equipe_nome,
-       e.usuario_id,
-       uu.nome AS usuario_nome,
+       -- A equipe não está em eventos: vem de evento_equipes (N:N).
+       (SELECT eq.id FROM evento_equipes ee JOIN equipes eq ON eq.id = ee.equipe_id
+          WHERE ee.evento_id = e.id ORDER BY eq.id LIMIT 1) AS equipe_id,
+       (SELECT eq.nome FROM evento_equipes ee JOIN equipes eq ON eq.id = ee.equipe_id
+          WHERE ee.evento_id = e.id ORDER BY eq.id LIMIT 1) AS equipe_nome,
+       -- O responsável é quem está vinculado à equipe do evento.
+       (SELECT uu.nome FROM usuarios uu
+          WHERE EXISTS (SELECT 1 FROM evento_equipes ee
+                        JOIN equipe_membros em ON em.equipe_id = ee.equipe_id
+                        WHERE ee.evento_id = e.id AND em.usuario_id = uu.id)
+          ORDER BY uu.id LIMIT 1) AS usuario_nome,
        e.meta_id,
        m.titulo AS meta_titulo
 FROM eventos e
 LEFT JOIN usuarios uc ON uc.id = e.criado_por
-LEFT JOIN equipes  eq ON eq.id = e.equipe_id
-LEFT JOIN usuarios uu ON uu.id = e.usuario_id
 LEFT JOIN metas    m  ON m.id  = e.meta_id;
 
 DROP VIEW IF EXISTS vw_usuario_resumo;
