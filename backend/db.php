@@ -36,7 +36,10 @@ function valid_csrf(?string $token): bool {
 }
 function require_login(): array {
     start_session();
-    if (empty($_SESSION['user'])) { header('Location: ' . app_path('login.html')); exit; }
+    // Destino diferente da própria página pedida: com /login.html servido como PHP,
+    // redirecionar para 'login.html' apontava para a mesma URL — o navegador
+    // abortava com ERR_TOO_MANY_REDIRECTS.
+    if (empty($_SESSION['user'])) { header('Location: ' . app_path('backend/login.php')); exit; }
     return $_SESSION['user'];
 }function is_admin(array $user): bool {
     return ($user['tipo_acesso'] ?? '') === 'admin';
