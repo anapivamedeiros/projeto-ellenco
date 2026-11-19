@@ -49,6 +49,14 @@
     if (ev.target.closest('[data-sidebar-open]')) { abrirSidebar(); return; }
     if (ev.target.closest('[data-sidebar-close]')) { fecharSidebar(); return; }
 
+    // No mobile, tocar num item da navegação tem de FECHAR o drawer. Antes só
+    // o overlay e o botão X fechavam: o link navegava, mas o menu continuava
+    // aberto ao voltar pelo histórico (o html mantinha data-sidebar-open).
+    if (sidebarAberta() && ev.target.closest('.sidebar .nav-item, .sidebar a[href]')) {
+      fecharSidebar();
+      return;
+    }
+
     var toggle = ev.target.closest('[data-sidebar-toggle]');
     if (toggle) {
       var colapsada = html.dataset.sidebar === 'collapsed';
@@ -66,6 +74,12 @@
 
   window.addEventListener('resize', function () {
     if (window.innerWidth > 760 && sidebarAberta()) fecharSidebar();
+  });
+
+  // Voltando pelo histórico (bfcache) o html vem com data-sidebar-open ainda
+  // ligado, e o drawer aparecia aberto por cima da página.
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted) fecharSidebar();
   });
 
   /* -------------------------------------------------------------- modal -- */
