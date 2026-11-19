@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/conn.php';
 function db(): PDO {
     static $pdo = null;
     if ($pdo === null) {
