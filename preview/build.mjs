@@ -176,7 +176,7 @@ const chipsMetas = `<div class="chips" role="tablist" aria-label="Filtrar metas"
   <a class="chip" role="tab" aria-selected="false" href="#">Minhas <span class="chip-contagem">5</span></a>
 </div>`;
 
-const barraMetas = `<div class="row-between" style="margin-bottom:16px">
+const barraMetas = `<div class="row-between barra-filtros" style="margin-bottom:16px">
   ${campoBusca('Buscar meta por título, descrição ou responsável…')}${chipsMetas}</div>`;
 
 const listaMetas = `<div class="grid grid-2">` + metas.map((m, i) => `
@@ -357,7 +357,7 @@ const equipe = shell('equipe', 'Equipe', 'Equipes, funções e pessoas',
     <div><h2 style="margin-bottom:2px">Equipes</h2><p class="text-sm muted">Crie equipes e inclua pessoas. Cada pessoa recebe as metas da equipe.</p></div>
     <button class="btn btn-primary" type="button" data-modal-abrir="modal-nova-equipe">${icon('plus', 16)} Nova equipe</button>
   </div>
-  <div class="row-between" style="margin-bottom:16px">${campoBusca('Buscar equipe, pessoa, e-mail ou função…')}${chipsEquipe}</div>
+  <div class="row-between barra-filtros" style="margin-bottom:16px">${campoBusca('Buscar equipe, pessoa, e-mail ou função…')}${chipsEquipe}</div>
   <div class="grid grid-2" style="margin-bottom:18px">${equipesHtml}</div>
   ${paginacao(1, 1, '1–3 de 3 equipes')}
   <div class="grid" style="grid-template-columns:minmax(0,1fr);gap:14px;margin-top:18px">
@@ -448,7 +448,7 @@ const modaisEvento = Object.keys(detalhesEvento).map((dia) => {
 }).join('');
 
 const calendario = shell('calendario', 'Calendário', 'Eventos da empresa, das equipes e seus',
-  `<div class="row-between" style="margin-bottom:14px">${campoBusca('Buscar evento por título, descrição ou local…')}
+  `<div class="row-between barra-filtros" style="margin-bottom:14px">${campoBusca('Buscar evento por título, descrição ou local…')}
     <button class="btn btn-primary" type="button" data-modal-abrir="modal-criar-evento">${icon('plus', 16)} Novo evento</button></div>
   <section class="card" style="padding:0;overflow:hidden;margin-bottom:16px" aria-label="Calendário">
     <div class="cal-head">
@@ -560,7 +560,7 @@ const painelUsuarios = `<section class="painel-secao card" data-secao-painel="us
   <div class="card-head"><div><h2 id="titulo-usuarios">Usuários e acessos</h2>
     <p class="card-sub">4 conta(s). Só administradoras veem esta seção.</p></div>
     <button class="btn btn-primary btn-sm" type="button" data-modal-abrir="modal-novo-usuario">${icon('userPlus', 14)} Novo usuário</button></div>
-  <div class="row-between" style="margin-bottom:12px">${campoBusca('Buscar por nome ou e-mail…')}
+  <div class="row-between barra-filtros" style="margin-bottom:12px">${campoBusca('Buscar por nome ou e-mail…')}
     <div class="chips"><a class="chip is-ativo" href="#">Todos</a><a class="chip" href="#">Ativos</a><a class="chip" href="#">Inativos</a><a class="chip" href="#">Administradores</a></div></div>
   <div class="table-wrap"><table class="tabela tabela-compacta"><thead><tr>
     <th scope="col">Pessoa</th><th scope="col">Acesso</th><th scope="col">Setor</th>

@@ -285,7 +285,7 @@ foreach ($abas as $k => $info) {
 }
 $chips .= '</div>';
 
-$barra = '<div class="row-between" style="margin-bottom:16px">'
+$barra = '<div class="row-between barra-filtros" style="margin-bottom:16px">'
        . campo_busca($termo, 'Buscar equipe, pessoa, e-mail ou função…',
             array_filter(['aba' => $aba]), 'busca')
        . $chips . '</div>';

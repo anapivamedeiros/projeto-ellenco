@@ -505,7 +505,7 @@ foreach ($rotulos as $k => $label) {
 }
 $chips .= '</div>';
 
-$barra = '<div class="row-between" style="margin-bottom:14px">'
+$barra = '<div class="row-between barra-filtros" style="margin-bottom:14px">'
        . campo_busca($termo, 'Buscar por título, descrição, pessoa ou anexo…',
             array_filter(['filtro' => $filtro !== 'todas' ? $filtro : null]), 'busca')
        . $chips . '</div>';
