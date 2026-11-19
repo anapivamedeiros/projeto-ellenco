@@ -403,7 +403,7 @@ if ($podeGerenciar) {
       . '<p class="card-sub">' . (int) $totalUsuarios . ' conta(s). Só administradoras veem esta seção.</p></div>'
       . '<button class="btn btn-primary btn-sm" type="button" data-modal-abrir="modal-novo-usuario">'
       . icon('user-plus', 14) . ' Novo usuário</button></div>'
-      . '<div class="row-between" style="margin-bottom:12px">'
+      . '<div class="row-between barra-filtros" style="margin-bottom:12px">'
       . campo_busca($termoUsuarios, 'Buscar por nome ou e-mail…', ['filtro' => $filtroUsuarios], 'busca_usuarios')
       . $chips . '</div>'
       . '<div class="table-wrap"><table class="tabela tabela-compacta"><thead><tr>'
