@@ -1,27 +1,75 @@
 <?php
+/**
+ * Login — agora emite o token CSRF na própria página e não repete o erro de
+ * conexão com detalhes técnicos (que ajudavam a mapear o servidor).
+ *
+ * As mensagens entram no marcador <!--mensagens--> do login.html.
+ */
 require_once __DIR__ . '/db.php';
+
 start_session();
-$error = '';
+$erro = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!valid_csrf($_POST['csrf_token'] ?? null)) $error = 'Sua sessão expirou. Atualize a página e tente novamente.';
-    else {
-        try {
-            $email = strtolower(trim($_POST['email'] ?? ''));
-            $stmt = db()->prepare('SELECT id,nome,email,senha_hash,tipo_acesso,setor FROM usuarios WHERE email=? AND ativo=1');
-            $stmt->execute([$email]); $user = $stmt->fetch();
-            if (!$user || !password_verify($_POST['password'] ?? '', $user['senha_hash'])) $error = 'E-mail ou senha inválidos.';
-            else { session_regenerate_id(true); unset($user['senha_hash']); $_SESSION['user'] = $user; header('Location: ' . app_path('painel.html'), true, 303); exit; }
-        } catch (Throwable $e) { $error = 'Não foi possível conectar ao banco de dados. Confira as variáveis de conexão do Supabase no Render.'; }
+    if (!valid_csrf($_POST['csrf_token'] ?? null)) {
+        $erro = 'Sua sessão expirou. Atualize a página e tente novamente.';
+    } else {
+        $email = strtolower(trim((string) ($_POST['email'] ?? '')));
+        $senha = (string) ($_POST['password'] ?? '');
+
+        if ($email === '' || $senha === '') {
+            $erro = 'Informe e-mail e senha.';
+        } else {
+            try {
+                $stmt = db()->prepare(
+                    'SELECT id, nome, email, senha_hash, tipo_acesso, setor, funcao_id
+                     FROM usuarios WHERE email = ? AND ativo = 1'
+                );
+                $stmt->execute([$email]);
+                $u = $stmt->fetch();
+
+                if (!$u || !password_verify($senha, (string) $u['senha_hash'])) {
+                    // mensagem única para não revelar se o e-mail existe
+                    $erro = 'E-mail ou senha inválidos.';
+                } else {
+                    session_regenerate_id(true);
+                    unset($u['senha_hash']);
+                    $_SESSION['user'] = $u;
+                    header('Location: ' . app_path('painel.html'), true, 303);
+                    exit;
+                }
+            } catch (Throwable $e) {
+                $erro = 'Não foi possível conectar ao banco de dados. '
+                      . 'Confira as variáveis de conexão no Render.';
+            }
+        }
     }
 }
-function h(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
-$html = file_get_contents(__DIR__ . '/../login.html');
-$errorBox = $error ? '<div role="alert" class="mb-4 p-3 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700">' . h($error) . '</div>' : '';
-$successBox = ($_GET['cadastro'] ?? '') === 'sucesso' ? '<div class="mb-4 p-3 rounded-lg bg-green-50 border border-green-200 text-sm text-green-700">Cadastro salvo. Entre com seu e-mail e senha.</div>' : '';
-$loginAction = h(app_path('login.html'));
-$html = str_replace('<form action="login.html" method="POST">', '<form action="' . $loginAction . '" method="POST"><input type="hidden" name="csrf_token" value="' . h(csrf_token()) . '">' . $successBox . $errorBox, $html);
+
+$html = (string) file_get_contents(__DIR__ . '/../login.html');
+
+$mensagens = '';
+if ($erro !== '') {
+    $mensagens .= '<div class="alert alert-error" role="alert">' . h($erro) . '</div>';
+}
+if (($_GET['cadastro'] ?? '') === 'sucesso') {
+    $mensagens .= '<div class="alert alert-ok" role="status">'
+                . 'Cadastro salvo. Entre com seu e-mail e senha.</div>';
+}
+if (($_GET['saiu'] ?? '') === '1') {
+    $mensagens .= '<div class="alert alert-ok" role="status">Sessão encerrada.</div>';
+}
+
+// token CSRF dentro do formulário
+$html = str_replace(
+    '<form action="login.html" method="POST" novalidate>',
+    '<form action="' . h(app_path('login.html')) . '" method="POST" novalidate>'
+    . '<input type="hidden" name="csrf_token" value="' . h(csrf_token()) . '">',
+    $html
+);
+
+$html = str_replace('<!--mensagens-->', $mensagens, $html);
 $html = str_replace('href="cadastro.html"', 'href="' . h(app_path('cadastro.html')) . '"', $html);
-$html = str_replace('<!--esqueceu senha-->', '<div class="text-center mt-5"><p class="text-xs text-slate-800">N&atilde;o tem login? <a href="' . h(app_path('cadastro.html')) . '" class="text-blue-600 font-bold hover:underline">Fa&ccedil;a seu cadastro.</a></p></div><!--esqueceu senha-->', $html);
+$html = str_replace('href="assets/auth.css"', 'href="' . h(app_path('assets/auth.css')) . '"', $html);
+
 echo $html;
-
-
